@@ -1,0 +1,24 @@
+# define IR_Sensor 9 
+# define Buzzer 2
+void setup() {
+Serial.begin(9600);
+pinMode(IR_Sensor, INPUT);
+pinMode(Buzzer, OUTPUT);
+Serial.print("IR Sensor and Buzzer Interfacing");
+}
+void loop() {
+int a;
+a = digitalRead(IR_Sensor);
+if(a==0){
+Serial.println("Object Detected");
+Serial.println("Buzzer ON");
+digitalWrite(Buzzer, LOW);
+delay(1000);
+}
+else{
+Serial.println("Object Not Detected");
+Serial.println("Buzzer OFF");
+digitalWrite(Buzzer, HIGH);
+delay(1000);
+}
+}

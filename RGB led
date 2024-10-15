@@ -1,0 +1,64 @@
+#define RED_PIN 9
+#define GREEN_PIN 10
+#define BLUE_PIN 11
+int colors[4][3] = {
+  {255, 0, 0},  // RED
+  {0, 255, 0}, //Green
+  {0, 0, 255}, // Blue
+{255, 255, 255},  // White
+};
+void setup() {
+  pinMode(RED_PIN, OUTPUT);
+  pinMode(GREEN_PIN, OUTPUT);
+
+  pinMode(BLUE_PIN, OUTPUT);
+}
+void loop() {
+  for (int i = 0; i < 3; i++) {
+    analogWrite(RED_PIN, colors[i][0]); 
+    analogWrite(GREEN_PIN, colors[i][1]);
+    analogWrite(BLUE_PIN, colors[i][2]);
+    delay(1000);
+  }
+}
+
+------------------------------------------------------------------------------
+
+// to display rainbow colours in rgb
+// pwm uses active low
+#define redpin 3
+#define greenpin 5
+#define bluepin 6
+
+void setup() {
+  pinMode(redpin, OUTPUT);
+  pinMode(greenpin, OUTPUT);
+  pinMode(bluepin, OUTPUT);
+}
+
+void rgb(int r, int g, int b) {
+  analogWrite(redpin, r);
+  analogWrite(greenpin, g);
+  analogWrite(bluepin, b);
+}
+
+void loop() {
+  rgb(128, 255, 0);  //violet
+  delay(200);
+  rgb(180, 255, 125);  // indigo
+  delay(200);
+  rgb(255, 255, 0);  //blue
+  delay(200);
+  rgb(255, 0, 255);  //green
+  delay(200);
+  rgb(4, 0, 255);  //yellow
+  delay(200);
+  rgb(0, 170, 255);  //orange
+  delay(200);
+  rgb(0, 255, 255);  //red
+  delay(200);
+ 
+  // rgb(0,0,0);
+  // delay(1000);
+}
+

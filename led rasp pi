@@ -1,0 +1,39 @@
+import time
+from gpiozero import LED
+
+led1 = LED(8)
+led2 = LED(10)
+led3 = LED(9)
+led4 = LED(11)
+
+while True:
+    try:
+        led1.off()
+        print("LED 1 IS OFF")
+        time.sleep(0.5)
+        led1.on()
+        print("LED 1 IS ON")
+        
+        led2.off()
+        print("LED 2 IS OFF")
+        time.sleep(0.5)
+        led2.on()
+        print("LED 2 IS ON")
+        
+        led3.off()
+        print("LED 3 IS OFF")
+        time.sleep(0.5)
+        led3.on()
+        print("LED 3 IS ON")
+        
+        led4.off()
+        print("LED 4 IS OFF")
+        time.sleep(0.5)
+        led4.on()
+        print("LED 4 IS ON")
+        
+        time.sleep(0.5)
+        
+    except KeyboardInterrupt:
+        print("Closing")
+        exit()

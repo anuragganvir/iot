@@ -1,0 +1,45 @@
+import time
+import RPi.GPIO as GPIO 
+
+TRUE = 1
+
+dev1 = 12
+dev2 = 4
+
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(dev1,GPIO.OUT)
+GPIO.setup(dev2,GPIO.OUT)
+
+def devState(dev,val):
+	if dev==1:
+		GPIO.output(dev1,val)
+	if dev==2:
+		GPIO.output(dev2,val)
+	
+		
+try:
+	while TRUE:
+		devState(1,1)
+		print('dev1 buzzer is ON')
+		time.sleep(1)
+		devState(1,0)
+		print('dev1 buzzer is OFF')
+		time.sleep(1)
+		devState(2,1)
+		print('dev2 relay is ON')
+		time.sleep(1)
+		devState(2,0)
+		print('dev2 relay is OFF')
+		time.sleep(1)
+	
+	
+# If CTRL+C is pressed the main loop is broken
+except KeyboardInterrupt:
+    RUNNING = False
+    print ("\Quitting") 
+# Actions under 'finally' will always be called
+finally:
+    # Stop and finish cleanly so the pins
+    # are available to be used again
+    GPIO.cleanup()

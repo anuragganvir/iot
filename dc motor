@@ -1,0 +1,48 @@
+#define DC1 11
+#define DC2 13 
+void setup() {
+pinMode(DC1,OUTPUT);
+pinMode(DC2,OUTPUT);
+Serial.begin(9600);
+}
+void loop() {
+int i;
+//PWM
+ //pin 11 is PWM pin we will use it to control speed and pin 13 will be on 
+either HIGH or LOW state permanently
+//clockwise
+digitalWrite(DC1,HIGH);
+digitalWrite(DC2,LOW);
+Serial.println("DC Motor is rotating in clockwise direction.");
+delay(5000);
+for(i=9;i<255;i+=20)
+{
+analogWrite(DC1,i);
+delay(1000);
+}
+//stop motor
+digitalWrite(DC1,LOW);
+digitalWrite(DC2,LOW);
+delay(2000);
+Serial.println("DC Motor stopped.");
+//counterclockwise
+digitalWrite(DC1,LOW);
+digitalWrite(DC2,HIGH);
+ delay(5000);
+Serial.println("DC Motor is rotating in anti-clockwise direction.");
+
+for(i=9;i<255;i+=20)
+{
+analogWrite(DC1,i);
+delay(1000);
+}
+//stop motor
+digitalWrite(DC1,LOW);
+digitalWrite(DC2,LOW);
+delay(2000);
+Serial.println("DC Motor stopped.");
+}
+
+----------------------------------------------------------------------------------
+
+

@@ -1,0 +1,117 @@
+from sklearn.cluster import DBSCAN, KMeans
+from matplotlib import pyplot as plt
+import numpy as np
+import seaborn as sns
+sns.set()
+import warnings
+warnings.filterwarnings("ignore")
+
+# Generate 100 random points in (x, y) format
+X = np.random.randint(15, 80, size=(55, 2))
+outliers = np.array([[110, 110], [125, 125], [130, 100], [2, 1], [4, 3]])
+
+# Append the outliers to the original dataset
+X = np.vstack([X, outliers])
+print(X)
+
+sns.scatterplot(x=X[:, 0], y=X[:, 1])
+
+clustering = DBSCAN(eps=11, min_samples=4)
+
+clustering.fit_predict(X)
+
+labels = clustering.fit_predict(X)
+
+# Plot the clustering results
+plt.figure(figsize=(8, 6))
+
+# Assign colors to clusters (unique colors for different labels)
+unique_labels = np.unique(labels)
+
+
+
+for label in unique_labels:
+    # Different colors for each cluster, and 'k' (black) for outliers
+    if label == -1:
+        color = 'k'  # Black color for outliers
+        marker = 'x'  # Use 'x' marker for outliers
+    else:
+        color = plt.cm.get_cmap('coolwarm') (label / len(unique_labels))
+        marker = 'o'  # Regular points with 'o' marker
+
+    # Plot the points corresponding to this label
+    plt.scatter(X[labels == label, 0], X[labels == label, 1],
+                c=[color], label=f'Cluster {label}' if label != -1 else 'Outliers',
+                marker=marker, edgecolors='k')
+
+# Add plot title and labels
+plt.title('DBSCAN Clustering Results')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

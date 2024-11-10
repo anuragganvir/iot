@@ -1,0 +1,95 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+import seaborn as sns
+sns.set()
+import warnings
+warnings.filterwarnings('ignore')
+
+df = pd.read_excel('/content/custemor_data.xlsx')
+df.head()
+
+# PLOT DATA POINTS
+
+plt.figure(figsize = (10,6))
+plt.title("Customer Data")
+sns.scatterplot(data=df,x='Income',y='Spendings')
+
+
+Individual_Clustering_Score = []
+
+for i in range(1,10):
+  kmeans = KMeans(n_clusters = i, init = 'random', random_state = 42)
+  kmeans.fit(df)
+  Individual_Clustering_Score.append(kmeans.inertia_)
+
+plt.figure(figsize=(10,6))
+sns.lineplot(x = range(1,10), y = Individual_Clustering_Score)
+
+Individual_Clustering_Score
+
+kmeans = KMeans(n_clusters = 2, random_state = 42)
+kmeans.fit(df)
+pred = kmeans.predict(df)
+pred
+
+df['Cluster'] = pd.DataFrame(pred, columns=['cluster'] ) #Adding cluster column to main data
+df.head()
+
+sns.lmplot(x='Income', y='Spendings', data=df, fit_reg=False, hue='Cluster', legend=True)
+plt.figure(figsize=(20,6))
+plt.show()
+
+kmeans.cluster_centers_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

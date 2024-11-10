@@ -1,0 +1,54 @@
+import pandas as pd
+import seaborn as sns
+sns.set()
+import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings("ignore")
+
+news_data = pd.read_csv('NewspaperData.csv')
+news_data.head()
+
+news_data.info()
+
+news_data.isnull().sum()
+
+news_data.dtypes
+
+sns.lmplot(x='daily', y='sunday',data=news_data)
+plt.title("daily vs sunday sell")
+plt.show()
+
+sns.distplot(a=news_data['daily'],hist=False)
+plt.title("daily sell")
+plt.show()
+
+news_data['daily'].skew(), news_data['daily'].kurtosis()
+
+news_data1=news_data.drop(labels='Newspaper',axis=1)
+news_data1.head()
+
+import statsmodels.formula.api as smf
+
+linear_model=smf.ols(formula='sunday~daily',data=news_data1)
+
+linear_model=linear_model.fit()
+linear_model.params
+
+print(linear_model.summary())
+
+x_test=pd.DataFrame( data={'daily':[300,250,585]})
+x_test
+
+linear_model.predict(x_test)
+
+from pickle import dump
+dump(linear_model,open('linear_intelligence.pkl','wb'))
+
+from pickle import load
+loaded_lin_model = load(open('linear_intelligence.pkl','rb'))
+
+loaded_lin_model.predict(x_test)
+
+
+
+

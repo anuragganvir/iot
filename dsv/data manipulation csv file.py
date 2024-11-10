@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # read datasdet using pandas
-df = pd.read_csv('/content/employees.csv')
+df = pd.read_csv('/dataset/employees.csv')
 df.head(5)
 
 df.shape

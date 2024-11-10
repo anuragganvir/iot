@@ -1,0 +1,62 @@
+import numpy as np
+import pandas as pd
+import seaborn as sns
+sns.set()
+import matplotlib.pyplot as plt
+%matplotlib inline
+import warnings
+warnings.filterwarnings('ignore')
+
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, roc_auc_score, roc_curve
+from sklearn.tree import plot_tree
+
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
+
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
+
+df=pd.read_csv("iris.csv")
+df.head()
+
+df.info()
+
+df.isnull().sum()
+
+df.describe().T
+
+# finding outliers
+a = df.columns[0:-1]
+for i in a:
+    sns.boxplot(y = df[i])
+    plt.show()
+
+q1=df['sepal.width'].quantile(q=0.25)
+q3=df['sepal.width'].quantile(q=0.75)
+iqr=q3-q1
+
+df = df[(df['sepal.width'] >= q1-1.5*iqr) & (df['sepal.width'] <= q3+1.5*iqr)]
+df.shape
+
+sns.boxplot(y=df['sepal.width'])
+plt.show()
+
+## splitting data
+Y=df['variety']
+X=df.drop("variety",axis=1)
+x_train,x_test,y_train,y_test=train_test_split(X,Y,test_size=0.2,random_state=42)
+
+X.shape, Y.shape
+
+# Defining an object for DTC and fitting for whole dataset
+dt = DecisionTreeClassifier(random_state=50 )
+dt.fit(X, Y)
+
+plt.figure(figsize=(10,6))
+dt = DecisionTreeClassifier().fit(X,Y)
+plot_tree(dt, filled=True)
+plt.title("Decision tree trained on all the iris features")
+plt.show()
+
